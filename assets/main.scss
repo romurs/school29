@@ -51,25 +51,37 @@
    --color-green-bright: #5ab900;    /* ярко-зелёный */
   --color-green-light:  #a4cb00;    /* светло-зелёный */
   --color-green-dark:   #005f00;    /* тёмно-зелёный */
+  --color-green-deep:   #004c2b;    /* глубокий зелёный */
   --color-red:          #ff002b;    /* красный */
   --color-gray:         #606060;    /* серый */
-  --color-green-deep:   #004c2b;    /* глубокий зелёный */
 
   /* Дополнительные цвета */
   --color-teal:         #00c496;    /* бирюзовый */
   --color-yellow:       #ffad00;    /* жёлтый */
   --color-orange:       #ff5426;    /* оранжевый */
   --color-black:        #000000;    /* Чёрный */
+
+
+  --color-main-page: #6d6c6c;
 }
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #18171c;
+}
+
+body{
+background-color: var(--color-gray);
+//   background-image: url(/public/Pattern_6_fixed.svg);
+//   background-repeat: repeat;
+//   background-size: 220px;
+//   font-family: 'Ubuntu', sans-serif;
 }
 
 a{
-  font-family: 'Torus', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   text-decoration: none;
+  color: #d3d2d2;
 }
 header{
   text-transform: lowercase;
