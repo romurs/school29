@@ -3,7 +3,7 @@ defineProps({
   value: String,
   link: String,
   isScrolled: Boolean,
-})
+});
 </script>
 
 <template>
@@ -13,19 +13,19 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-.nav-btn{
+.nav-btn {
   align-items: center;
   display: flex;
   padding: 10px;
   max-width: 100px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
-.nav-btn:hover{
-  a{
+.nav-btn:hover {
+  a {
     color: #fff;
     scale: 1.05;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
   }
 }
 </style>

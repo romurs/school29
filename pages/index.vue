@@ -5,7 +5,7 @@
 </template>
 
 <style scoped lang="scss">
-.main{
+.main {
   margin-top: 6.2rem;
   min-height: 1550px;
   max-width: 1000px;
@@ -16,7 +16,7 @@
 
   margin-bottom: 0.6rem;
 
-  @media (max-width: 1000px){
+  @media (max-width: 1000px) {
     margin-top: 3.2rem;
   }
 }

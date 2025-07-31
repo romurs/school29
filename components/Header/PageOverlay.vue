@@ -3,9 +3,9 @@ defineProps({
   isMenuOpen: Boolean,
   toggleFn: {
     type: Function as PropType<(e: MouseEvent) => void>,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>

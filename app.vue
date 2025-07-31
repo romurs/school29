@@ -11,15 +11,14 @@ import HeaderItem from "./components/HeaderItem.vue";
   </div>
 </template>
 
-
 <style scoped lang="scss">
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-main{
+main {
   flex: 1 0 auto;
 }
 </style>

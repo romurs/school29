@@ -17,9 +17,9 @@
             </template>
           </FooterDateText>
 
-          <FooterDateText text="Заместитель директора: +7 (8362) 56-00-80"/>
+          <FooterDateText text="Заместитель директора: +7 (8362) 56-00-80" />
 
-          <FooterDateText text="Вахта: +7 (8362) 21-67-32"/>
+          <FooterDateText text="Вахта: +7 (8362) 21-67-32" />
 
           <FooterDateText
             text="Марий-Эл, г.Йошкар-Ола, Ленинский проспект, д.10А"

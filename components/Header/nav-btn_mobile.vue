@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Angle from './Angle.vue';
+import Angle from "./Angle.vue";
 defineProps({
   value: String,
-  link: String
+  link: String,
 });
 </script>
 
@@ -32,11 +32,11 @@ defineProps({
   }
 }
 
-.link{
+.link {
   margin-left: 10px;
 }
 
-.nav_angle{
+.nav_angle {
   height: 15px;
   width: 15px;
 }

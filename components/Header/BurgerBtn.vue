@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import Angle from './Angle.vue';
+import Angle from "./Angle.vue";
 defineProps({
   isMenuOpen: Boolean,
   toggleFn: {
     type: Function as PropType<(e: MouseEvent) => void>,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>
-  <button
-    class="burger-btn"
-    @click="toggleFn"
-  >
+  <button class="burger-btn" @click="toggleFn">
     <div class="burger-btn__angle">
       <Angle v-if="!isMenuOpen" direction="down" />
       <Angle v-else direction="up" />
@@ -22,8 +19,6 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-
-
 .burger-btn {
   height: 3.2rem;
   width: 100%;
