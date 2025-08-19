@@ -34,6 +34,7 @@ defineProps({
 
 .link {
   margin-left: 10px;
+  color: #ffffff;
 }
 
 .nav_angle {

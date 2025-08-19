@@ -21,6 +21,8 @@ defineProps({
 
 p{
   margin: 0.2rem;
+  font-weight: 500;
+  color: #fff;
 }
 
 .icon{

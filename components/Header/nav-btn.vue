@@ -19,6 +19,7 @@ defineProps({
   padding: 10px;
   max-width: 100px;
   transition: all 0.3s ease;
+  color: var(--color-main-page);
 }
 
 .nav-btn:hover {

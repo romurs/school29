@@ -41,7 +41,7 @@
 footer {
   min-height: 5rem;
   width: 100%;
-  background-color: var(--color-main-page);
+  background-color: var(--elements-bg-color);
   font-weight: 400;
   flex-shrink: 0;
 }

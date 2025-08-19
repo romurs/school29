@@ -114,7 +114,7 @@ header {
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: var(--color-main-page);
+  background-color: var(--elements-bg-color);
   z-index: 999;
 }
 </style>
