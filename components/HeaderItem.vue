@@ -22,32 +22,93 @@ onBeforeUnmount(() => {
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
+
+const show = ref(false);
 </script>
 
 <template>
   <PageOverlay :isMenuOpen="isMenuOpen" :toggle-fn="toggleMenu" />
+  <transition name="menu-slide">
+    <div class="mobile-menu" v-if="isMenuOpen" @click.stop>
+      <NavBtn_mobile
+        value="Сведения об организации"
+        link="/information"
+        :toggleFn="toggleMenu"
+      />
+      <NavBtn_mobile
+        value="Ученикам и родителям"
+        link="/children_and_parents"
+        :toggleFn="toggleMenu"
+      />
+      <NavBtn_mobile
+        value="Приём в 1 класс"
+        link="/receiving_to_1_class"
+        :toggleFn="toggleMenu"
+      />
+      <NavBtn_mobile
+        value="Приём в 10 класс"
+        link="/receiving_to_10_class"
+        :toggleFn="toggleMenu"
+      />
+      <NavBtn_mobile
+        value="Заказать справку"
+        link="/order_a_certificate"
+        :toggleFn="toggleMenu"
+      />
+      <NavBtn_mobile
+        value="Электронный дневник"
+        link="https://sgo.mari-el.gov.ru/"
+        :toggleFn="toggleMenu"
+      />
+    </div>
+  </transition>
   <header>
     <div class="header-container">
       <HeaderLogo :isScrolled="isScrolled" />
-      <nav class="nav-btns" :class="{ 'nav-scrolled': isScrolled }">
-        <NavBtn value="Сведения об организации" link="/information" />
-        <NavBtn value="Приём в школу" link="/information" />
-        <NavBtn value="Ученикам и родителям" link="/information" />
-        <NavBtn value="Новости" link="/information" />
-        <NavBtn value="Полоезная организация" link="/information" />
+
+      <!-- <transition name="popup_background">
+        <div v-if="show" class="popup_background"></div>
+      </transition> -->
+
+      <nav
+        class="nav-btns"
+        :class="{ 'nav-scrolled': isScrolled }"
+        @mouseenter="show = true"
+        @mouseleave="show = false"
+      >
+        <NavBtn
+          value="Сведения об организации"
+          link="/information"
+          :submenu="[
+            { text: 'Документы', link: '/news' },
+            { text: 'Руководство', link: '/team' },
+            { text: 'Образовательные стандарты', link: '/download' },
+          ]"
+        />
+        <!-- <NavBtn
+          value="Ученикам и родителям"
+          link="/students"
+          :submenu="[
+            { text: 'Приём в 1 класс', link: '/news' },
+            { text: 'Приём в 10 класс', link: '/team' },
+            { text: 'Электронный дневник', link: '/changelog' },
+            { text: 'Заказать справку', link: '/download' },
+          ]"
+        /> -->
+        <NavBtn value="Ученикам и родителям" link="/children_and_parents" />
+        <NavBtn value="Приём в 1 класс" link="/receiving_to_1_class" />
+        <NavBtn value="Приём в 10 класс" link="/receiving_to_10_class" />
+        <NavBtn value="Заказать справку" link="/order_a_certificate" />
+        <NavBtn
+          value="Электронный дневник"
+          link="https://sgo.mari-el.gov.ru/"
+        />
+        <!-- <NavBtn value="приём на работу" link="/information" /> -->
+        <!-- <NavBtn value="Новости" link="/allnews" /> -->
+        <!-- <NavBtn value="Полоезная организация" link="/information" /> -->
       </nav>
       <BurgerBtn :isMenuOpen="isMenuOpen" :toggleFn="toggleMenu" />
     </div>
-
-    <transition name="menu-slide">
-      <div class="mobile-menu" v-if="isMenuOpen" @click.stop>
-        <NavBtn_mobile value="Сведения об организации" link="/vse" />
-        <NavBtn_mobile value="Приём в школу" link="/negri" />
-        <NavBtn_mobile value="Ученикам и родителям" link="/pidarasi" />
-        <NavBtn_mobile value="Новости" link="/ebanyi" />
-        <NavBtn_mobile value="Полезная организация" link="/rot" />
-      </div>
-    </transition>
   </header>
 </template>
 
@@ -72,6 +133,17 @@ header {
     margin-right: 0;
     width: 100%;
   }
+}
+
+.popup_background {
+  background-color: #2e2e2eef;
+  width: 100%;
+  height: 200px;
+  left: 0;
+
+  position: absolute;
+  top: 100%;
+  border-bottom: 2px solid var(--color-red);
 }
 
 .nav-btns {
@@ -111,10 +183,12 @@ header {
 
 .mobile-menu {
   position: absolute;
-  top: 100%;
+  top: 3.2rem;
   left: 0;
   width: 100%;
-  background-color: var(--elements-bg-color);
+  background-color: #2e2e2eef;
   z-index: 999;
+  padding-bottom: 20px;
+  font-weight: 700;
 }
 </style>

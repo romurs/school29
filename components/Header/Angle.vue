@@ -2,7 +2,8 @@
 type Direction = "up" | "right" | "down" | "left";
 
 const props = defineProps<{
-  direction: Direction;
+  direction: Direction,
+  color?: string
 }>();
 
 const rotationDegrees: Record<Direction, number> = {
@@ -15,6 +16,7 @@ const rotationDegrees: Record<Direction, number> = {
 // Вычисляем стиль для transform
 const imageStyle = computed(() => ({
   transform: `rotate(${rotationDegrees[props.direction]}deg)`,
+  color: `${props.color}`,
 }));
 </script>
 
@@ -39,5 +41,6 @@ const imageStyle = computed(() => ({
   width: 100%;
   height: 100%;
   display: block;
+  color: var(--elements-bg-color);
 }
 </style>

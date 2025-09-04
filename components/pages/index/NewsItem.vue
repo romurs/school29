@@ -1,34 +1,52 @@
 <script setup lang="ts">
-defineProps({
-  image: {
-    type: String,
-    required: true
-  },
-  title: String,
-  discription: String
-});
+
+interface Props {
+  image: string;
+  title: string;
+  discription: string;
+  date?: string;
+  id: number;
+}
+
+const props = defineProps<Props>()
+
+// Функция для форматирования даты
+const formatDate = (dateString?: string) => {
+  if (!dateString) return { day: '', month: '', year: '' }
+  
+  const date = new Date(dateString)
+  const day = date.getDate()
+  const month = date.toLocaleString('ru', { month: 'short' })
+  const year = date.getFullYear()
+  
+  return { day, month, year: year.toString() }
+}
+
+const dateParts = formatDate(props.date)
 </script>
 
 <template>
-  <div class="news__item">
-    <div class="news_img" :style="{'--bg-image': `url(${image})`}">
-      <img :src="image" alt="" />
-    </div>
-    <div class="news__informations">
-      <div class="news_date">
-        <div class="news_date__day">9</div>
-        <div class="news_date__month-year">авг. 2025</div>
+  <NuxtLink :to="`/news/${id}`">
+    <div class="news__item">
+      <div class="news_img" :style="{'--bg-image': `url(${image})`}">
+        <img :src="image" :alt="title" />
       </div>
-      <div class="newes_text">
-        <div class="title">
-          <h3>{{ title }}</h3>
+      <div class="news__informations">
+        <div class="news_date" v-if="date">
+          <div class="news_date__day">{{ dateParts.day }}</div>
+          <div class="news_date__month-year">{{ dateParts.month }} {{ dateParts.year }}</div>
         </div>
-        <div class="discription">
-          <p>{{ discription }}</p>
+        <div class="newes_text">
+          <div class="title">
+            <h3>{{ title }}</h3>
+          </div>
+          <div class="discription">
+            <p>{{ discription }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">

@@ -2,7 +2,7 @@
 const props = defineProps({
   logo: {
     type: String,
-    required: true
+    required: false
   },
   value: String,
   color: {

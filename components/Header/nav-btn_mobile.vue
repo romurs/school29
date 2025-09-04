@@ -1,25 +1,28 @@
 <script setup lang="ts">
-import Angle from "./Angle.vue";
 defineProps({
   value: String,
   link: String,
+  toggleFn: {
+    type: Function as PropType<(e: MouseEvent) => void>,
+    required: true,
+  },
 });
 </script>
 
 <template>
-  <div class="nav-btn">
-    <div class="nav_angle">
-      <Angle direction="right" />
+  <NuxtLink class="link" :to="link"  @click="toggleFn">
+    <div class="nav-btn">
+       {{ value }}
     </div>
-    <NuxtLink class="link" :to="link">{{ value }}</NuxtLink>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">
 .nav-btn {
   align-items: center;
   display: flex;
-  padding: 10px;
+  padding-top: 10px;
+  margin-left: 10px;
   width: 100%;
   transition: all 0.3s ease;
 }

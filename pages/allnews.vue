@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import NewsItem from "./NewsItem.vue";
+import NewsItem from '@/components/pages/index/NewsItem.vue';
 
-// 1,77777778
+useHead({
+  title: 'Новости | 29',
+  meta: [
+    { name: 'allnews', content: 'Все новости школы номер 29' }
+  ]
+})
 
 interface News {
   id: number;
@@ -22,41 +27,32 @@ const newsList = ref<News[]>([]);
 const nextPage = ref<string | null>(null);
 const loading = ref(false);
 
-// Загрузка данных с обработкой ошибок
-const loadNews = async (
-  url: string = "http://localhost:8000/api/news/?page_size=3"
-) => {
+const loadNews = async (url?: string) => {
   try {
     loading.value = true;
-    const { data, error } = await useFetch<ApiResponse>(url);
+    
+    // Используем $fetch вместо useFetch для последующих запросов
+    const data = await $fetch<ApiResponse>(url || 'http://localhost:8000/api/news/');
 
-    if (error.value) {
-      console.error("Ошибка загрузки:", error.value);
-      return;
-    }
-
-    if (data.value) {
-      newsList.value = [...newsList.value, ...data.value.results];
-      nextPage.value = data.value.next;
-    }
+    newsList.value = [...newsList.value, ...data.results];
+    nextPage.value = data.next;
+    
   } catch (err) {
-    console.error("Ошибка:", err);
+    console.error("Ошибка загрузки:", err);
   } finally {
     loading.value = false;
   }
 };
 
-// Загружаем первые новости
 await loadNews();
 
-// Функция "Загрузить ещё"
-// const loadMore = () => {
-//   if (nextPage.value) {
-//     loadNews(nextPage.value);
-//   }
-// };
+const loadMore = () => {
+  if (nextPage.value) {
+    loadNews(nextPage.value);
+  }
+};
 
-// const hasNextPage = computed(() => !!nextPage.value);
+const hasNextPage = computed(() => !!nextPage.value);
 
 // Функция для форматирования даты
 // const formatDate = (dateString: string) => {
@@ -86,8 +82,6 @@ const shortDiscription = (content: string) => {
 <template>
   <div class="news">
     <h2>Новости</h2>
-
-    <!-- Динамические новости из API -->
     <NewsItem
       v-for="news in newsList"
       :key="news.id"
@@ -97,18 +91,20 @@ const shortDiscription = (content: string) => {
       :date="news.created_at"
       :id="news.id"
     />
-
     <div class="more_news">
-      <NuxtLink to="/allnews">
-        <button class="more_news__btn">Все новости</button>
-      </NuxtLink>
+      <button class="more_news__btn" v-if="hasNextPage" @click="loadMore" :disabled="loading">{{ loading ? 'Загрузка...' : 'Загрузить ещё' }}</button>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+
 .news {
   width: 38rem;
+
+  margin-left: auto;
+  margin-right: auto;
+
   h2 {
     color: var(--title-color);
     font-family: "Ubuntu", sans-serif;
