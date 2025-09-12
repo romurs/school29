@@ -3,6 +3,9 @@ import NewsItem from "./NewsItem.vue";
 
 // 1,77777778
 
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 interface News {
   id: number;
   title: string;
@@ -24,7 +27,7 @@ const loading = ref(false);
 
 // Загрузка данных с обработкой ошибок
 const loadNews = async (
-  url: string = "http://localhost:8000/api/news/?page_size=3"
+  url: string = `${apiUrl}/news/?page_size=3`
 ) => {
   try {
     loading.value = true;

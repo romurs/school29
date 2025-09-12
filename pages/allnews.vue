@@ -23,6 +23,9 @@ interface ApiResponse {
   results: News[];
 }
 
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 const newsList = ref<News[]>([]);
 const nextPage = ref<string | null>(null);
 const loading = ref(false);
@@ -32,7 +35,7 @@ const loadNews = async (url?: string) => {
     loading.value = true;
     
     // Используем $fetch вместо useFetch для последующих запросов
-    const data = await $fetch<ApiResponse>(url || 'http://localhost:8000/api/news/');
+    const data = await $fetch<ApiResponse>(url || `${apiUrl}/news/`);
 
     newsList.value = [...newsList.value, ...data.results];
     nextPage.value = data.next;

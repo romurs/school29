@@ -116,9 +116,13 @@ const show = ref(false);
 header {
   position: fixed;
   width: 100%;
-  background-color: var(--color-green-bright);
+  background-color: var(--elements-bg-color);
   font-weight: 700;
   z-index: 1000;
+
+  @media (max-width: 1000px) {
+    position: absolute;
+  }
 }
 
 .header-container {

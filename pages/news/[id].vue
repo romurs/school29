@@ -31,11 +31,14 @@ interface News {
   image?: string;
 }
 
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 const news = ref<News | null>(null)
 const loading = ref(true)
 
 // Загрузка данных новости
-const { data } = await useFetch<News>(`http://localhost:8000/api/news/${newsId}/`)
+const { data } = await useFetch<News>(`${apiUrl}/news/${newsId}/`)
 
 if (data.value) {
   news.value = data.value

@@ -20,11 +20,14 @@ interface CategoryResponse {
   documents: DocumentItem[];
 }
 
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 const allDoc = ref<CategoryResponse[]>([]);
 
 onMounted(async () => {
   try {
-    const res = await fetch("http://localhost:8000/api/categories/");
+    const res = await fetch(`${apiUrl}/categories/`);
     const data: CategoryResponse[] = await res.json();
     allDoc.value = data.filter(cat => cat.documents && cat.documents.length > 0);
   } catch (err) {

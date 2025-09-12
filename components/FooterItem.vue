@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import F7AlarmFill from '~/assets/icons/F7AlarmFill.svg'
+import F7PhoneFillArrowDownLeft from '~/assets/icons/F7PhoneFillArrowDownLeft.svg'
+import F7PlacemarkFill from '~/assets/icons/F7PlacemarkFill.svg'
+</script>
 
 <template>
   <footer>
@@ -7,13 +11,13 @@
         <div class="date_container">
           <FooterDateText text="ПН-ПТ 08:00–19:00; СБ 08:30–14:00">
             <template #icon>
-              <Icon name="f7:alarm-fill" />
+              <F7AlarmFill width="13" class="w-5 h-5 text-red-500" />
             </template>
           </FooterDateText>
 
           <FooterDateText text="Приёмная директора: +7 (8362) 21-56-88">
             <template #icon>
-              <Icon name="f7:phone-fill-arrow-down-left" />
+              <F7PhoneFillArrowDownLeft width="13" class="w-5 h-5 text-blue-500" />
             </template>
           </FooterDateText>
 
@@ -22,10 +26,10 @@
           <FooterDateText text="Вахта: +7 (8362) 21-67-32" />
 
           <FooterDateText
-            text="Марий-Эл, г.Йошкар-Ола, Ленинский проспект, д.10А"
+            text="Марий Эл, г.Йошкар-Ола, Ленинский проспект, д.10А"
           >
             <template #icon>
-              <Icon name="f7:placemark-fill" />
+              <F7PlacemarkFill width="13" class="w-5 h-5 text-green-600" />
             </template>
           </FooterDateText>
         </div>

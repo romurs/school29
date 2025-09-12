@@ -26,7 +26,7 @@ import { NuxtLink } from '#components';
     <div class="location">
       <h4>Адрес:</h4>
       <NuxtLink to="https://yandex.ru/maps/-/CHxVJMNS">
-        <p class="address">Марий-Эл, г.Йошкар-Ола, Ленинский проспект, д.10А</p>
+        <p class="address">Марий Эл, г.Йошкар-Ола, Ленинский проспект, д.10А</p>
       </NuxtLink>
     </div>
   </div>

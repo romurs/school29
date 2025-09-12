@@ -6,6 +6,10 @@ useHead({
   meta: [{ name: "order a certificate", content: "Заказ справок школы номер 29" }],
 });
 
+
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 const fio = ref("");
 const classNumber = ref("");
 const classLetter = ref("");
@@ -72,7 +76,7 @@ const submitForm = async (event: Event) => {
   };
 
   try {
-    const response = await fetch("http://localhost:8000/api/references/order/", {
+    const response = await fetch(`${apiUrl}/references/order/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
