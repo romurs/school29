@@ -3,15 +3,15 @@ import NewsItem from "./NewsItem.vue";
 
 // 1,77777778
 
-const config = useRuntimeConfig()
-const apiUrl = config.public.apiUrl
+const config = useRuntimeConfig();
+const apiUrl = config.public.apiUrl;
 
 interface News {
   id: number;
   title: string;
   content: string;
   created_at: string;
-  image?: string; // добавлено поле для изображения
+  image?: string;
 }
 
 interface ApiResponse {
@@ -25,23 +25,14 @@ const newsList = ref<News[]>([]);
 const nextPage = ref<string | null>(null);
 const loading = ref(false);
 
-// Загрузка данных с обработкой ошибок
-const loadNews = async (
-  url: string = `${apiUrl}/news/?page_size=3`
-) => {
+const loadNews = async () => {
   try {
     loading.value = true;
-    const { data, error } = await useFetch<ApiResponse>(url);
+    const data = await $fetch<ApiResponse>(`${apiUrl}/news/?page_size=3`)
 
-    if (error.value) {
-      console.error("Ошибка загрузки:", error.value);
-      return;
-    }
-
-    if (data.value) {
-      newsList.value = [...newsList.value, ...data.value.results];
-      nextPage.value = data.value.next;
-    }
+      newsList.value = [...newsList.value, ...data.results];
+      nextPage.value = data.next;
+    
   } catch (err) {
     console.error("Ошибка:", err);
   } finally {
@@ -49,39 +40,17 @@ const loadNews = async (
   }
 };
 
-// Загружаем первые новости
 await loadNews();
-
-// Функция "Загрузить ещё"
-// const loadMore = () => {
-//   if (nextPage.value) {
-//     loadNews(nextPage.value);
-//   }
-// };
-
-// const hasNextPage = computed(() => !!nextPage.value);
-
-// Функция для форматирования даты
-// const formatDate = (dateString: string) => {
-//   const date = new Date(dateString)
-//   const day = date.getDate()
-//   const month = date.toLocaleString('ru', { month: 'short' })
-//   const year = date.getFullYear()
-//   return { day, month, year }
-// }
 
 const shortDiscription = (content: string) => {
   if (!content) return "";
 
-  // Находим конец первого предложения
   const sentenceEnd = content.match(/[.!?…]/);
 
   if (sentenceEnd) {
-    // Берем все до первого знака конца предложения + сам знак
     return content.substring(0, sentenceEnd.index! + 1);
   }
 
-  // Если нет знаков препинания, берем первые 100 символов
   return content.length > 100 ? content.substring(0, 100) + "..." : content;
 };
 </script>
@@ -89,8 +58,6 @@ const shortDiscription = (content: string) => {
 <template>
   <div class="news">
     <h2>Новости</h2>
-
-    <!-- Динамические новости из API -->
     <NewsItem
       v-for="news in newsList"
       :key="news.id"
@@ -113,7 +80,7 @@ const shortDiscription = (content: string) => {
 .news {
   width: 38rem;
   h2 {
-    color: var(--title-color);
+    color: #005f00;
     font-family: "Ubuntu", sans-serif;
     font-weight: bolder;
   }

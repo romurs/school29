@@ -7,18 +7,18 @@ const route = useRoute()
 const newsId = route.params.id
 const hasHistory = ref(false)
 
-
 const router = useRouter()
 
 onMounted(() => {
   hasHistory.value = window.history.length > 2
+  loadNews()
 })
 
 const goBack = () => {
   if (hasHistory.value) {
-    router.go(-1) // Возврат назад
+    router.go(-1)
   } else {
-    router.push('/allnews') // Если истории нет, идем к новостям
+    router.push('/allnews')
   }
 }
 
@@ -27,7 +27,7 @@ interface News {
   title: string;
   content: string;
   created_at: string;
-  updated_at:string;
+  updated_at: string;
   image?: string;
 }
 
@@ -36,16 +36,23 @@ const apiUrl = config.public.apiUrl
 
 const news = ref<News | null>(null)
 const loading = ref(true)
+const error = ref<string | null>(null)
 
-// Загрузка данных новости
-const { data } = await useFetch<News>(`${apiUrl}/news/${newsId}/`)
-
-if (data.value) {
-  news.value = data.value
+// Загрузка данных в onMounted
+const loadNews = async () => {
+  try {
+    loading.value = true
+    error.value = null
+    const response = await $fetch<News>(`${apiUrl}/news/${newsId}/`)
+    news.value = response
+  } catch (err) {
+    console.error('Ошибка загрузки новости:', err)
+    error.value = 'Не удалось загрузить новость'
+  } finally {
+    loading.value = false
+  }
 }
-loading.value = false
 
-// Функция для форматирования даты
 const formatDate = (dateString: string) => {
   const date = new Date(dateString)
   return date.toLocaleDateString('ru-RU', {
@@ -60,7 +67,6 @@ const formatDate = (dateString: string) => {
   <div class="news-detail" v-if="!loading && news">
     <div class="news-header">
       <div class="news-detail__header">
-        <!-- <NuxtLink to="/allnews" class="back-link">← Назад</NuxtLink> -->
         <button class="back-link" @click="goBack">← Назад</button>
         <h1>{{ news.title }}</h1>
         <div class="news-date">{{ formatDate(news.created_at) }}</div>
@@ -84,7 +90,7 @@ const formatDate = (dateString: string) => {
   </div>
   
   <div v-else class="error">
-    Новость не найдена
+    {{ error || 'Новость не найдена' }}
   </div>
 </template>
 
@@ -100,14 +106,16 @@ const formatDate = (dateString: string) => {
 }
 
 .back-link {
-  color: #fff;
+  color: #000000;
   margin-bottom: 20px;
   display: inline-block;
-  background-color: var(--color-green-light);
+  background-color: #e9e9e9;
   transition: all 0.3s ease;
   border-radius: 23px;
   padding: 10px;
   border: none;
+
+  cursor: pointer;
 }
 
 .back-link:hover {

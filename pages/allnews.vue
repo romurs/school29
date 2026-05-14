@@ -13,7 +13,7 @@ interface News {
   title: string;
   content: string;
   created_at: string;
-  image?: string; // добавлено поле для изображения
+  image?: string;
 }
 
 interface ApiResponse {
@@ -34,7 +34,6 @@ const loadNews = async (url?: string) => {
   try {
     loading.value = true;
     
-    // Используем $fetch вместо useFetch для последующих запросов
     const data = await $fetch<ApiResponse>(url || `${apiUrl}/news/`);
 
     newsList.value = [...newsList.value, ...data.results];
@@ -57,27 +56,16 @@ const loadMore = () => {
 
 const hasNextPage = computed(() => !!nextPage.value);
 
-// Функция для форматирования даты
-// const formatDate = (dateString: string) => {
-//   const date = new Date(dateString)
-//   const day = date.getDate()
-//   const month = date.toLocaleString('ru', { month: 'short' })
-//   const year = date.getFullYear()
-//   return { day, month, year }
-// }
 
 const shortDiscription = (content: string) => {
   if (!content) return "";
 
-  // Находим конец первого предложения
   const sentenceEnd = content.match(/[.!?…]/);
 
   if (sentenceEnd) {
-    // Берем все до первого знака конца предложения + сам знак
     return content.substring(0, sentenceEnd.index! + 1);
   }
 
-  // Если нет знаков препинания, берем первые 100 символов
   return content.length > 100 ? content.substring(0, 100) + "..." : content;
 };
 </script>
